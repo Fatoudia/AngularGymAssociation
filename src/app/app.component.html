@@ -1,0 +1,283 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" style="color:white;">Gymnase Manager</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+       <li class="nav-item active">
+          <a class="nav-link" (click)="onOpenModal(null, 'add')">Add Gymnase <span class="sr-only">(current)</span></a>
+       </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+       <input type="search" (ngModelChange)="searchGymnases(key.value)" #key="ngModel" ngModel
+        name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search employees..." required>
+    </form>
+ </div>
+</nav>
+<div id="main-container">
+<div class="container mt-3 mb-4">
+<div class="col-lg-9  mt-4 mt-lg-0">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+          <table class="table manage-candidates-top mb-0">
+            <thead>
+              <tr>
+                <th>Liste de gymnases</th>
+                <th class="action text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let gymnase of gymnases" class="candidates-list">
+                <td    class="title">
+                 
+                  <div class="candidate-list-details">
+                    <div class="candidate-list-info">
+                      <div class="candidate-list-title">
+                        <h5 class="mb-0"><a href="#">{{gymnase.nomGymnase}}</a></h5>
+                      </div>
+                      <div class="candidate-list-option">
+                        <ul class="list-unstyled">
+                          <li>IdGymnase:{{gymnase.idGymnase}}</li>
+                          <li>Adresse:{{gymnase.adresse}}</li>
+                          <li>Ville: {{gymnase.ville}}</li>
+                          <li>Surface:{{gymnase.surface}}</li>
+                          <li>
+                           
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+    
+                <td>
+                  <div class="card-body">
+                    <div class="float-right btn-group btn-group-sm">
+                  <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                    <li><a (click)="onOpenModal(gymnase, 'show')" class="btn btn-tertiary tooltips" data-placement="top" data-original-title="show" class="text-primary" data-toggle="tooltip" title="" data-original-title="show"><i class="far fa-eye"></i></a></li>
+                    <li><a (click)="onOpenModal(gymnase, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a></li>
+                    <li><a (click)="onOpenModal(gymnase, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>
+<!--                 <li><a (click)="onOpenModal(gymnase, 'addSeance')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="addSeance" class="text-danger" data-toggle="tooltip" title="" data-original-title="addSeance"><i class="far fa-eye"></i></a></li>
+ --> </ul>
+                  </div>
+                  </div>
+                </td>
+              </tr>
+            
+            </tbody>
+          </table>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Employee Modal -->
+<div class="modal fade" id="addGymnaseModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+       <div class="modal-header">
+          <h5 class="modal-title" id="addGymnaseModalLabel">Add Gymnase</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+       </div>
+       <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="onAddGymnases(addForm)">
+          <div class="form-group">
+             <label for="name">IdGymnase</label>
+             <input type="text" ngModel name="idGymnase" class="form-control" id="idGymnase" placeholder="IdGymnase" required>
+          </div>
+          <div class="form-group">
+             <label for="email">Name</label>
+             <input type="text" ngModel name="nomGymnase" class="form-control" id="nomGymnase" placeholder="Nom" required>
+          </div>
+          <div class="form-group">
+             <label for="phone">Adress</label>
+             <input type="text" ngModel name="adresse" class="form-control" id="adresse" placeholder="Adress" required>
+          </div>
+          <div class="form-group">
+             <label for="phone">Ville</label>
+             <input type="text" ngModel name="ville" class="form-control" id="ville" placeholder="Ville" required>
+          </div>
+          <div class="form-group">
+             <label for="phone">Surface</label>
+             <input type="number" ngModel name="surface" class="form-control" id="surface" placeholder="Surface" required>
+          </div>
+          <div class="modal-footer">
+             <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save </button>
+          </div>
+          </form>
+       </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Edit Modal -->
+<div class="modal fade" id="updateGymnaseModal" tabindex="-1" role="dialog" aria-labelledby="gymnaseEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="updateGymnaseModalLabel">Edit Gymnase {{editGymnase?.nomGymnase}}</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #editForm="ngForm">
+            <div class="form-group">
+              <label for="name">Id</label>
+              <input type="text" ngModel="{{editGymnase?.id}}" name="id" class="form-control" id="id" aria-describedby="emailHelp" placeholder="Id">
+           </div>
+           <div class="form-group">
+            <label for="name">IdGymnase</label>
+            <input type="number" ngModel="{{editGymnase?.idGymnase}}" name="idGymnase" class="form-control" id="id" aria-describedby="emailHelp" placeholder="IdGymnase">
+         </div>
+              <div class="form-group">
+                 <label for="name">NomGymnase</label>
+                 <input type="text" ngModel="{{editGymnase?.nomGymnase}}" name="nomGymnase" class="form-control" id="nomGymnase" aria-describedby="emailHelp" placeholder="nomGymnase">
+              </div>
+              <!-- <input type="hidden" ngModel="{{editEmployee?.id}}" name="id" class="form-control" id="id" placeholder="Email"> -->
+              <!-- <input type="hidden" ngModel="{{editEmployee?.employeeCode}}" name="userCode" class="form-control" id="userCode" placeholder="Email"> -->
+              <div class="form-group">
+                 <label for="adresse"> Address</label>
+                 <input type="text" ngModel="{{editGymnase?.adresse}}" name="adresse" class="form-control" id="adresse" placeholder="Adresse">
+              </div>
+              <div class="form-group">
+                 <label for="ville">Ville</label>
+                 <input type="text" ngModel="{{editGymnase?.ville}}" name="ville" class="form-control" id="ville" placeholder="ville">
+              </div>
+              <div class="form-group">
+                 <label for="phone">Surface</label>
+                 <input type="number" ngModel="{{editGymnase?.surface}}" name="surface" class="form-control" id="surface" name="surface" placeholder="Surface">
+              </div>
+              
+        <!--      <div class="card-body">
+                <div class="float-right btn-group btn-group-sm">
+              <ul  class="list-unstyled mb-0 d-flex justify-content-end">
+                 <li *ngFor="let seance of seances"><a (click)="onOpenModal(seance, 'addSeance')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="addSeance" class="text-danger" data-toggle="tooltip" title="" data-original-title="addSeance"><i class="far fa-eye"></i></a></li>
+              </ul>
+              </div>
+              </div>-->
+              <div class="modal-header">
+                <h5 class="modal-title" id="addSeanseModalLabel">Add Seance</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+
+                
+                </button>
+             </div>
+            <div *ngFor="let seance of findById?.seance">
+            <div class="form-group">
+            <label for="name">IdSportifEntraineur</label>
+            <input type="number" ngModel name="idSportifEntraineur" class="form-control" id="idSportifEntraineur" placeholder="IdSportifEntraineur" required>
+            </div>
+            <div class="form-group">
+            <label for="email">Jours</label>
+            <input type="text" ngModel name="jour" class="form-control" id="jour" placeholder="Jour" required>
+            </div>
+            <div class="form-group">
+            <label for="phone">HORAIRES</label>
+            <input type="number" ngModel name="horaire" class="form-control" id="horaire" placeholder="HORAIRE" required>
+            </div>
+            <div class="form-group">
+            <label for="phone">DUREE</label>
+            <input type="number" ngModel name="duree" class="form-control" id="duree" placeholder="Duree" required>
+            </div>
+            <div class="form-group">
+            <label for="phone">LIBELLES</label>
+            <input type="text" ngModel name="libelle" class="form-control" id="libelle" placeholder="Libelle" required>
+            </div>
+            </div>
+            <button  type="submit" class="btn btn-primary" >Save </button>
+             
+              <div class="modal-footer">
+                 <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                 <button (click)="onUpdateGymnases(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+              </div>
+           </form>
+        </div>
+     </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteGymnaseModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="deleteModelLabel">Delete Gymnase</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <p>Are you sure you want to delete employee {{deleteGymnases?.nomGymnase}}?</p>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button (click)="onDeleteGymnases(deleteGymnases.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+
+<!-- Show gymnase -->
+<div class="modal fade" id="showGymnaseModal" tabindex="-1" role="dialog" aria-labelledby="gymnaseEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="showGymnaseModalLabel">LES SEANCES DANS LE GYMNASE  {{findById?.nomGymnase}}</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="container mt-3 mb-4">
+          <div class="col-lg-9 mt-4 mt-lg-0">
+              <div class="row">
+                <div class="col-md-12">
+                  <div  class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+                      <div class="candidates-list">
+                    <table  class="table manage-candidates-top mb-0" class="table" id="seance"  class="table table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th>IdSportifEntraineur  </th>
+                                            <th>Jours</th>
+                                            <th>Horaires</th>
+                                            <th>Duree</th>
+                                            <th>Libelles</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                         <tr *ngFor="let seance of findById?.seance">
+                                           <td>{{seance?.idSportifEntraineur}}</td>
+                                           <td>{{seance?.jour}}</td>
+                                           <td>{{seance?.horaire}}</td>
+                                           <td>{{seance?.duree}}</td>
+                                           <td>{{seance?.libelle}}</td>
+                                         </tr>
+                                        </tbody>
+                                        </table>
+                                      </div>      
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Notification for no gymnase -->
+<div *ngIf="gymnases?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+<div class="alert alert-info" role="alert">
+  <h4 class="alert-heading">NO Gymnases!</h4>
+  <p>No Gymnase were found.</p>
+</div>
+
+</div>

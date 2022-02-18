@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AngularGymAssociation</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+ <style type="text/css">
+  body {
+    background-image: url(https://picsum.photos/seed/picsum/200/300);
+  background-repeat:no-repeat; background-size: cover;
+font: 16px "Carnivalee Freakshow"; margin: auto;  height: auto; background-color: #DCDCDC;}
+#container{
+  margin-top: 339px;
+    margin-left: 602px;
+    margin-bottom: 238px;
+}
+  
+.h1{width: 500px;}
+
+.but{
+  margin: 50px;
+    padding: 15px;
+    border: 5px black;
+}
+
+.but:hover{
+  text-decoration: none;
+	color: #000;
+}
+  </style>
+</head>
+<body>
+
+
+  <h1 class="h1">ASSOCIATION ACB</h1>
+
+  <div style="text-align:center"class="container">
+    <h1>
+      Welcome {{title}}!
+    </h1>
+    <div class="container" >
+      <p>Id: <span>{{greeting.id}}</span></p>
+      <p>Message: <span>{{greeting.content}}!</span></p>
+    </div>
+  </div>
+
+  <div id="container">
+    <button  class="but" (click)= "getGymnases()">Gymnases </button>
+    <div *ngFor="let gymnase of gymnases">
+         {{gymnase.idGymnase}}
+         
+    </div>
+<button class="but">Sportifs</button>
+  </div>
+  
+  <app-root></app-root>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+</body>
+</html>
